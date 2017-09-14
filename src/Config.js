@@ -7,9 +7,9 @@ var Config = {
         theme: '#bd1c1b',
         themeDarker: '#961a19'
     },
-    defaultModel: 'Amaryllis',
-    modelList: ['Amaryllis'],
-    modelCompression: true,
+    defaultModel: 'Experimental_1',
+    modelList: ['Amaryllis', 'Experimental_1', 'Experimental_1'],
+    modelCompression: false,
     modelConfig: {
         Amaryllis: {
             options: [
@@ -175,7 +175,7 @@ var Config = {
                 labelLength: 38,
                 imageWidth: 128,
                 imageHeight: 128,
-                model: '/models/Experimetal_0',
+                model: '/models/Experimental_0',
                 modelServers:  ['localhost:3000']
             },
         },
@@ -223,13 +223,13 @@ var Config = {
                     key: 'blush',
                     type: 'binary',
                     offset: 30,
-                    prob: 0.6
+                    prob: 0.25
                 },
                 {
                     key: 'smile',
                     type: 'binary',
                     offset: 31,
-                    prob: 0.6
+                    prob: 0.25
                 },
                 {
                     key: 'closed_eyes',
@@ -247,19 +247,19 @@ var Config = {
                     key: 'hat',
                     type: 'binary',
                     offset: 34,
-                    prob: 0.04488882
+                    prob: 0.25
                 },
                 {
                     key: 'ribbon',
                     type: 'binary',
                     offset: 35,
-                    prob: 0.3
+                    prob: 0.25
                 },
                 {
                     key: 'glasses',
                     type: 'binary',
                     offset: 36,
-                    prob: 0.05384738
+                    prob: 0.25
                 },
                 {
                     key: 'year',
@@ -273,7 +273,7 @@ var Config = {
                 labelLength: 38,
                 imageWidth: 128,
                 imageHeight: 128,
-                model: '/models/Experimetal_1',
+                model: '/models/Experimental_1',
                 modelServers:  ['localhost:3000']
             },
         },
