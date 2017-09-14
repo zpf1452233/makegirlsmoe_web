@@ -8,7 +8,7 @@ var Config = {
         themeDarker: '#961a19'
     },
     defaultModel: 'Experimental_1',
-    modelList: ['Amaryllis', 'Experimental_1', 'Experimental_1'],
+    modelList: ['Amaryllis', 'Experimental_0', 'Experimental_1'],
     modelCompression: false,
     modelConfig: {
         Amaryllis: {
