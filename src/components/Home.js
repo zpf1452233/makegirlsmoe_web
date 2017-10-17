@@ -17,6 +17,9 @@ import Stat from '../utils/Stat';
 import ImageEncoder from '../utils/ImageEncoder';
 import Twitter from '../utils/Twitter';
 import './Home.css';
+import 'react-photoswipe/lib/photoswipe.css';
+import {PhotoSwipeGallery} from 'react-photoswipe';
+
 
 class Home extends Component {
 
@@ -37,7 +40,8 @@ class Home extends Component {
             },
             rating: 0,
             mode: 'normal',
-            webglAvailable: false
+            webglAvailable: false,
+            imageHistory: [],
         };
         this.initOptions(this.state.options, Config.defaultModel);
         this.ganDict = {};
@@ -234,12 +238,20 @@ class Home extends Component {
             var noise = this.getNoise(optionInputs);
             var result = await this.gan.run(label, noise);
             var results = i === 0 ? [result] : this.state.results.concat([result]);
+
+            var resultImage = new ImageEncoder(this.getModelConfig()).encode(result);
+
+            var imageHistory = [resultImage].concat(this.state.imageHistory.slice());
+            //imageHistory.push(resultImage);
+
             this.setState({
                 options: optionInputs,
                 results: results,
                 rating: 0,
-                gan: Object.assign({}, this.state.gan, {noise: noise, noiseOrigin: optionInputs.noise.value, input: noise.concat(label)})
+                gan: Object.assign({}, this.state.gan, {noise: noise, noiseOrigin: optionInputs.noise.value, input: noise.concat(label)}),
+                imageHistory: imageHistory,
             });
+
         }
 
         //Stat.generate(this.state.options);
@@ -363,11 +375,35 @@ class Home extends Component {
         this.setState({rating: value});
     }
 
+    renderGallary(){
+        if (this.state.imageHistory.length ===0){
+            return null;
+        }
+        let items = [];
+        for (let img in this.state.imageHistory){
+            items.push({src:this.state.imageHistory[img], thumbnail:this.state.imageHistory[img], w:128, h:128, title:'img_'+img});
+        }
+        let options = {};
+        let getThumbnailContent = (item) => {
+            return (
+                <img src={item.thumbnail} width={128} height={128}/>
+            );
+        };
+        return (
+            <div className="image-gallery">
+                <PhotoSwipeGallery items={items} options={options} />
+            </div>
+        );
+    }
+
     render() {
         return (
             <div className="home">
 
                 <div className="row main-row">
+                    <div className="row">
+                        {this.renderGallary()}
+                    </div>
                     <div className={(this.state.twitter.visible ? 'col-lg-8 ' : '') + 'col-xs-12'}>
                         <div className="row progress-container">
                             <CSSTransitionGroup
@@ -438,8 +474,8 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-
                 </div>
+
 
                 <PromptDialog
                     ref={dialog => this.dialog = dialog}

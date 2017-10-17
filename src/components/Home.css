@@ -81,3 +81,14 @@
         border-top: 1px solid #ddd;
     }
 }
+
+.pswp-thumbnail {
+    display: inline-block;
+    margin: 0 5px 5px 0;
+}
+
+.image-gallery{
+    height: 100px;
+    overflow: auto;
+    margin: 5px 10px 10px 5px;
+}
